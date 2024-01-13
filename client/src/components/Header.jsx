@@ -18,8 +18,8 @@ export default function Header() {
             </form>
             <ul className='flex gap-4 justify-evenly'>
 
-            <Link to="/about"><li className='hidden sm:inline text-black hover:text-white'>About</li></Link>
-            <Link to="/profile"> <li className='hidden sm:inline text-black hover:text-white'>Profile</li></Link>
+            <Link to="/home"><li className='hidden sm:inline text-black hover:text-white'>Home</li></Link>
+            <Link to="/about"> <li className='hidden sm:inline text-black hover:text-white'>About</li></Link>
             <Link to="signin">  <li className=' text-black hover:text-white'>Sign In</li></Link>
 
                 
