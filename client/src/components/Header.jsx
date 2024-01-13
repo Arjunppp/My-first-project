@@ -12,10 +12,9 @@ export default function Header() {
                 <span className='text-black'>Estate</span>
             </h1>
             </Link>
-            <form className='bg-slate-50 rounded-lg p-3 flex'>
-                <input type="text" placeholder='Search...' className='bg-transparent focus:outline-none'/>
-                <FaSearch className='text-slate-600' />
-
+            <form className='bg-slate-50 rounded-lg p-3 flex w-2/5'>
+                <input type="text" placeholder='Search...' className='bg-transparent focus:outline-none flex-1' />
+                <FaSearch className='text-slate-600 ml-2' />
             </form>
             <ul className='flex gap-4 justify-evenly'>
 
