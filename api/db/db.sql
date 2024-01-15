@@ -1,5 +1,5 @@
 CREATE TABLE Users (
-    username TEXT UNIQUE NOT NULL,
+    username TEXT PRIMARY KEY NOT NULL,
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
