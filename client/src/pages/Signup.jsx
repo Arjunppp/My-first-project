@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default function Signup() {
   const [currentState, setState] = useState({ username: '', password: '', email: '' });
   const [submitState, setSubmitState] = useState(true);
-  const [error, setError] = useState('');
+  const [{ err, errstatus }, setError] = useState({errstatus:false});
 
   function handleChange(event) {
          const { id, value } = event.target;
@@ -26,11 +26,15 @@ export default function Signup() {
                                                      });
              setSubmitState(true);
              const data = await res.json();
-              setError(data.message);
-               setTimeout(() => {
-                            setError('');
-                       }, 1000);
 
+             
+
+             setError({ err: data.message, errstatus: data.sucess}); 
+              
+             setTimeout(() => {
+              setError({});
+            }, 2000);
+          
     
     
   }
@@ -46,7 +50,7 @@ export default function Signup() {
         <input type="text" autoComplete='off' onChange={handleChange} className='w-1/4 border p-3 rounded-lg' placeholder='Username' id='username' />
         <input type="password" onChange={handleChange} className='w-1/4 border p-3 rounded-lg' placeholder='Password' id='password' />
         <input type="text" autoComplete='off' onChange={handleChange} className='w-1/4 border p-3 rounded-lg' placeholder='Email' id="email" />
-        <button onClick={handleSubmit} className='w-hangeborder p-3 rounded-lg uppercase hover:opacity-50 bg-black text-white'>{submitState === true ? "Sign Up" : "Loading.."}</button>
+        <button onClick={handleSubmit} className='w-hangeborder p-3 rounded-lg uppercase  bg-black text-white hover:text-black hover:bg-white'>{submitState === true ? "Sign Up" : "Loading.."}</button>
       </form>
       <div className='flex gap-3 mt-5 justify-center'>
         <p>Have an Account ?</p>
@@ -55,7 +59,7 @@ export default function Signup() {
         </Link>
       </div>
 
-      <p className='text-red-400 text-center font-semibold my-7'>{error}</p>
+      <p className={errstatus === false ? 'text-red-400 text-center font-semibold my-7' : 'text-green-500 text-center font-semibold my-7'}>{err}</p>
     </div>
   );
 }

@@ -9,7 +9,7 @@ export const signup = async (req ,res,next) =>
 {
     const {username , password ,email} = req.body
     if (!username || !email) {
-      return res.status(400).send({ message: 'Username and email are required' });
+      next(errorHandler(400 ,"All coloumns must filled"));
       }
 
       else{

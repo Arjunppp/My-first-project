@@ -4,7 +4,7 @@ import Home from './pages/home'
 import About from './pages/About'
 import Profile from './pages/profile'
 import Signin from './pages/signin'
-import Signup from './pages/signup'
+import Signup from './pages/Signup'
 import Header from './components/Header' // Header element is used above routes to reflect in every file 
 
 export default function App() {

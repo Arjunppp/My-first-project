@@ -14,13 +14,13 @@ export default function Header() {
             </Link>
             <form className='bg-slate-50 rounded-lg p-3 flex w-2/5'>
                 <input type="text" placeholder='Search...' className='bg-transparent focus:outline-none flex-1' />
-                <FaSearch className='text-lime-900 ml-2' />
+                <FaSearch className='text-l ml-2' />
             </form>
             <ul className='flex gap-4 justify-evenly'>
 
-            <Link to="/home"><li className='hidden sm:inline text-black hover:text-white'>Home</li></Link>
+            <Link to="/"><li className='hidden sm:inline text-black hover:text-white'>Home</li></Link>
             <Link to="/about"> <li className='hidden sm:inline text-black hover:text-white'>About</li></Link>
-            <Link to="/signup">  <li className=' text-black hover:text-white'>Sign Up</li></Link>
+            <Link to="signin">  <li className=' text-black hover:text-white'>Sign In</li></Link>
 
                 
                 
