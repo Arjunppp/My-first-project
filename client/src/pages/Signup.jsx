@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate } from 'react-router-dom';
 
 export default function Signup() {
-  const [currentState, setState] = useState({ username: '', password: '', email: '' });
-  const [submitState, setSubmitState] = useState(true);
-  const [{ err, errstatus }, setError] = useState({errstatus:false});
+  const [currentState, setState] = useState({ username: '', password: '', email: '' });  //this use state is used for tracking the state of credentials 
+  const [submitState, setSubmitState] = useState(true); //this useState is used for changing the text in submit button according to our need
+  const [{ err, errstatus }, setError] = useState({errstatus:false}); //to display the error , and error status determines the color as well as when to navigate etc.
+  const navigate = useNavigate();
 
   function handleChange(event) {
          const { id, value } = event.target;
          setState((prevValue) => ({
-                   ...prevValue,
-               [id]: value,
+                   ...prevValue,  //spread operator is used to have the previous value
+               [id]: value, //it will change the changed value
                }));
               }
 
@@ -26,12 +27,14 @@ export default function Signup() {
                                                      });
              setSubmitState(true);
              const data = await res.json();
+            setError({ err: data.message, errstatus: data.sucess}); 
 
-             
-
-             setError({ err: data.message, errstatus: data.sucess}); 
-              
-             setTimeout(() => {
+             if ( data.sucess !== false)
+            {
+              navigate('/signin')  //useNavigate method of router dom is used to navigate to signin
+            }
+         
+            setTimeout(() => {
               setError({});
             }, 2000);
           
@@ -50,7 +53,7 @@ export default function Signup() {
         <input type="text" autoComplete='off' onChange={handleChange} className='w-1/4 border p-3 rounded-lg' placeholder='Username' id='username' />
         <input type="password" onChange={handleChange} className='w-1/4 border p-3 rounded-lg' placeholder='Password' id='password' />
         <input type="text" autoComplete='off' onChange={handleChange} className='w-1/4 border p-3 rounded-lg' placeholder='Email' id="email" />
-        <button onClick={handleSubmit} className='w-hangeborder p-3 rounded-lg uppercase  bg-black text-white hover:text-black hover:bg-white'>{submitState === true ? "Sign Up" : "Loading.."}</button>
+        <button disabled ={!submitState} onClick={handleSubmit} className='w-hangeborder p-3 rounded-lg uppercase  bg-black text-white hover:text-black hover:bg-white'>{submitState === true ? "Sign Up" : "Loading.."}</button>
       </form>
       <div className='flex gap-3 mt-5 justify-center'>
         <p>Have an Account ?</p>
@@ -59,7 +62,8 @@ export default function Signup() {
         </Link>
       </div>
 
-      <p className={errstatus === false ? 'text-red-400 text-center font-semibold my-7' : 'text-green-500 text-center font-semibold my-7'}>{err}</p>
+      <p className={errstatus === false ? 'text-red-400 text-center font-semibold my-7' : 'text-green-500 text-center font-semibold my-7'}>{err}</p> {/*this will have no use actually -- because now we are navigating to signin page directly */}
+      
     </div>
   );
 }
