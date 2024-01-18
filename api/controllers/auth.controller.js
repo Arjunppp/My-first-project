@@ -17,16 +17,28 @@ export const signup = async (req ,res,next) =>
     if (!username || !email) {
       next(errorHandler(400 ,"All coloumns must filled")); //checks whether the entries are empty or not
       }
-
+      
+      
       else{
   
     const hashedpassword = bcrypt.hashSync(password ,10);
     try {
+      const dbCheck = await pool.query('SELECT username, email FROM users WHERE username = $1 OR email = $2', [username, email]);
+    
+      if (dbCheck.rows.length === 0) {
+        // Neither username nor email exists, proceed with registration
         await pool.query('INSERT INTO Users (username, email, password) VALUES ($1, $2, $3)', [username, email, hashedpassword]);
         res.status(200).send({ message: 'User registered successfully' });
-    }catch (err)
-    {
-      next (err) //calling the middleware
+      } else {
+        // Either username or email already exists
+        if (dbCheck.rows[0].username === username) {
+          next(errorHandler(400, 'Username already exists'));
+        } else if (dbCheck.rows[0].email === email) {
+          next(errorHandler(400, 'Email already exists'));
+        }
+      }
+    } catch (err) {
+      next(err); // calling the middleware
     }
   }
 
