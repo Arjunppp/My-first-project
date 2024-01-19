@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link ,useNavigate } from 'react-router-dom'; 
 import {  useDispatch, useSelector } from 'react-redux';
-import { signInFailure ,signInStart , signInSucess } from '../redux/userSlice';
+import { signInFailure ,signInStart , signInSucess } from '../redux/users/userSlice';
 
 export default function Signin() {
   const [currentState, setState] = useState({ password: '', email: '' });  //this use state is used for tracking the state of credentials 
