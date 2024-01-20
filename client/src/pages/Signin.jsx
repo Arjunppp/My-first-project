@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link ,useNavigate } from 'react-router-dom'; 
-import {  useDispatch, useSelector } from 'react-redux';
+import { Link ,useNavigate } from 'react-router-dom';  //useNavigate  Hook can be navigate to desired URL. --useNavigate , Link ----link to under our control we can navigate --navigate will automatically navigates
+import {  useDispatch, useSelector } from 'react-redux';//useDispatch to update actions in the react store // useSelector hook is used for state updation //Ui will rerender components based on the state change- it will know through use Selector hook
+//with UseSelector - specific slices of state are received
 import { signInFailure ,signInStart , signInSucess } from '../redux/users/userSlice';
 
 export default function Signin() {

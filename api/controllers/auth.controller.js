@@ -9,7 +9,7 @@ dotenv.config();
 
 
 //next is an middleware created to handle the error 
-//we are also using an function ,errorHandler to deal the error
+//we are also using an function ,errorHandler to deal the error --error handler is used to deal with artifical errors
 
 export const signup = async (req ,res,next) =>
 {
@@ -67,7 +67,8 @@ export const signin = async (req ,res,next) =>
           const token = Jwt.sign({id :validuser[0].email}, process.env.JWT_secret) // Here id can be any unique value , in mongo db iself create an id , we here considering email as unique
           const [{ password, ...rest }] = validuser; // Destructure password and the rest of the properties // along with cookie otherinfomation also send back , but need to renmove password from that 
           res.cookie('accesstoken', token, { httpOnly: true }).status(200).json(rest); //this rest is send as a response
-
+      //an cookie named acesstoken is sending --its stored with value token -- httponly true means its in acessable from javascript enhances the security.
+      //Here cookie expiry not defined will persist unltil deleted by the user
         }
        }
        else{ //if the user doesnot exist

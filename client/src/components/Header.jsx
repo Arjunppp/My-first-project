@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaSearch } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa"; //library to use font Awsome -- we using search icon
 import { Link } from 'react-router-dom';
 
 export default function Header() {
