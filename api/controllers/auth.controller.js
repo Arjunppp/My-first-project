@@ -82,3 +82,49 @@ export const signin = async (req ,res,next) =>
           }  
   }
  };
+
+
+
+
+
+ export const OAuth = async (req ,res,next) =>
+
+ {
+
+  try 
+  {
+    
+  const {name ,email , photoURL} = req.body
+
+  //if user exist -- fetch the data and respond with the tokee
+
+  const User = (await pool.query("SELECT * FROM users WHERE email = $1", [email])).rows;
+
+  if (User.length == 0)
+  { 
+    const password1 = Array.from({ length: 10 }, () => String.fromCharCode(Math.floor(Math.random() * 26) + 65)).join('');
+    const hashedpassword = bcrypt.hashSync(password1,10)
+    await pool.query('INSERT INTO Users (username, email, password , photo) VALUES ($1, $2, $3,$4)', [name, email, hashedpassword,photoURL ]);
+    const User = (await pool.query("SELECT * FROM users WHERE email = $1", [email])).rows;
+    const token = Jwt.sign({id :User[0].email}, process.env.JWT_secret) // Here id can be any unique value , in mongo db iself create an id , we here considering email as unique
+    const [{ password, ...rest }] = User; // Destructure password and the rest of the properties // along with cookie otherinfomation also send back , but need to renmove password from that 
+    res.cookie('accesstoken', token, { httpOnly: true }).status(200).json(rest);
+    
+  }
+  else
+  {
+    const token = Jwt.sign({id :User[0].email}, process.env.JWT_secret) // Here id can be any unique value , in mongo db iself create an id , we here considering email as unique
+    const [{ password, ...rest }] = User; // Destructure password and the rest of the properties // along with cookie otherinfomation also send back , but need to renmove password from that 
+    res.cookie('accesstoken', token, { httpOnly: true }).status(200).json(rest);
+    
+  }
+}catch(error)
+{
+  next(error);
+}
+}
+
+  
+
+
+
